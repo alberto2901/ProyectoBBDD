@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 public class ClientesDAO {
     
-    private Connection conexion = null;
+    private static Connection conexion = null;
 
     public ClientesDAO() {
         try {
@@ -30,15 +30,15 @@ public class ClientesDAO {
         }
     }
 
-    public Connection getConexion() {
+    public static Connection getConexion() {
         return conexion;
     }
     
-    public Cliente read(Integer id) {
+    public static Cliente read(Integer id) {
         Cliente cliente = null;
         PreparedStatement stmt = null;
 
-        if (this.conexion == null) {
+        if (ClientesDAO.conexion == null) {
             return null;
         }
 
@@ -81,16 +81,12 @@ public class ClientesDAO {
         PreparedStatement stmt = null;
         Integer ultimoID = null;
 
-        if (this.conexion == null || cliente == null) {
-            return false;
+        if (this.conexion == null) {
+            return null;
         }
 
         try {
-            /**
-             * Inserto en la BBDD un empelado con un código mayor en uno que
-             * todos los anteriores. Esta BD no tiene autoincremental en en el
-             * campo codito de empleado
-             */
+
             String sql = "INSERT INTO clientes "
                     + "(id, codigo, empresa, contacto, cargo_contacto, direccion, ciudad, region, cp, pais, telefono, fax) "
                     + "VALUES ((SELECT Max(id)+1 FROM `clientes` E), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -115,6 +111,49 @@ public class ClientesDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error en el Insert: " + e.getMessage()+ " SQL:" + stmt.toString());
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error al cerrar la conexión: " + ex.getMessage());
+            }
+        }
+
+        return resultado;
+    }
+    
+    public Boolean update(Cliente cliente) {
+        Boolean resultado = null;
+        PreparedStatement stmt = null;
+
+        if (this.conexion == null || cliente == null) {
+            return false;
+        }
+
+        try {
+
+            String sql = "UPDATE clientes SET nombre = ?, apellido1 = ?, apellido2 = ?, extension = ?"
+                    + ", email = ?, codigooficina = ?, codigojefe = ?, puesto = ? WHERE id = ?";
+
+            stmt = conexion.prepareStatement(sql);
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getApellido1());
+            stmt.setString(3, cliente.getApellido2());
+            stmt.setString(4, cliente.getExtension());
+            stmt.setString(5, cliente.getEmail());
+            stmt.setString(6, cliente.getCodigoOficina());
+            stmt.setString(7, cliente.getCodigoJefe());
+            stmt.setString(8, cliente.getPuesto());
+
+            stmt.setInt(9, cliente.getCodigoEmpleado());
+            if (stmt.executeUpdate() > 0) {
+                resultado = true;
+
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en el Update: " + e.getMessage()+ " SQL:" + stmt.toString());
         } finally {
             try {
                 if (stmt != null) {

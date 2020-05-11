@@ -9,6 +9,8 @@ package entidades;
  *
  * @author Alberto
  */
+import menu.menu;
+
 public class Cliente {
     
     private Integer id;
@@ -37,6 +39,10 @@ public class Cliente {
         this.pais = pais;
         this.telefono = telefono;
         this.fax = fax;
+    }
+
+    public Cliente() {
+        
     }
 
     public Integer getId() {

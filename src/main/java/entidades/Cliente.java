@@ -143,7 +143,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "|Cliente|" + "  |Id = " + id  + "|" + "  |Codigo = " + codigo + "|" + "  |Empresa = " + empresa + "|" + "  |Contacto = " + contacto + "|" + "  |Cargo_contacto = " + cargo_contacto + "|" + "  |Direccion = " + direccion + "|" + "  |Ciudad = " + ciudad + "|" + "  |Region = " + region + "|" + "  |Cp = " + cp + "|" + "  |Pais = " + pais + "|" + "  |Telefono = " + telefono + "|" + "  |Fax = " + fax + "|"+ '}';
+        return "|Id = " + id  + "|" + "  |Codigo = " + codigo + "|" + "  |Empresa = " + empresa + "|" + "  |Contacto = " + contacto + "|" + "  |Cargo_contacto = " + cargo_contacto + "|" + "  |Direccion = " + direccion + "|" + "  |Ciudad = " + ciudad + "|" + "  |Region = " + region + "|" + "  |Cp = " + cp + "|" + "  |Pais = " + pais + "|" + "  |Telefono = " + telefono + "|" + "  |Fax = " + fax + "|"+ '}';
     }
     
 }

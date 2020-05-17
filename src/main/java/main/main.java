@@ -21,7 +21,6 @@ import menu.menu;
  */
 public class main {
    static ClientesDAO clientes = new ClientesDAO();
-   static Cliente cliente2 = new Cliente(99,"JJPO","Real Rondo","Seryu Gomes","Gerente de Mon","Calle El Peligro","Madrid","ESP","566689","España","56668798462","22553356");
    static menu menu = new menu();
    
     public static void main(String[] args) {
@@ -33,10 +32,5 @@ public class main {
             System.out.println("Conexion realizada correctamente\n");
         }
         menu.menu();
-        
-        /*Cliente cliente1 = clientes.read(1);
-        System.out.println(cliente1);
-        
-        clientes.insert(cliente2);*/
     }
 }
